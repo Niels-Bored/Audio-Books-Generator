@@ -32,8 +32,11 @@ def readPages(pdf_path, title, initial_page, final_page, generation_path):
     engine.runAndWait()
 
 def convert_book(pdf_path, name, page, total_pages, generation_path):
-    if(page<total_pages):
-        readPages(pdf_path, name, page, page+1, generation_path)
+    if(page + 50 <total_pages):
+
+        readPages(pdf_path, name, page, page+50, generation_path)
+    elif(page <= total_pages):
+        readPages(pdf_path, name, page, total_pages, generation_path)
     else:
         engine = pyttsx3.init()
         engine.setProperty("rate", 150)
@@ -56,5 +59,5 @@ for file_name in files:
     print("Filename: "+ file_name)
     print("Total Pages: "+str(total_pages))
     print("_______________________________")
-    for page in range(total_pages):
+    for page in range(1, total_pages, 50):
         convert_book(file_path, file_name, page, total_pages, audios_path)
