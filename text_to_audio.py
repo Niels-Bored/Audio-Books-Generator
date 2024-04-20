@@ -31,10 +31,10 @@ def readPages(pdf_path, title, initial_page, final_page, generation_path):
     engine.save_to_file(audio, output_path)
     engine.runAndWait()
 
-def convert_book(pdf_path, name, page, total_pages, generation_path):
-    if(page + 50 <total_pages):
+def convert_book(pdf_path, name, page, page_range, total_pages, generation_path):
+    if(page + page_range <total_pages):
 
-        readPages(pdf_path, name, page, page+50, generation_path)
+        readPages(pdf_path, name, page, page+page_range, generation_path)
     elif(page <= total_pages):
         readPages(pdf_path, name, page, total_pages, generation_path)
     else:
@@ -59,5 +59,6 @@ for file_name in files:
     print("Filename: "+ file_name)
     print("Total Pages: "+str(total_pages))
     print("_______________________________")
-    for page in range(1, total_pages, 50):
-        convert_book(file_path, file_name, page, total_pages, audios_path)
+    page_range = 50
+    for page in range(1, total_pages, page_range):
+        convert_book(file_path, file_name, page, page_range, total_pages, audios_path)
